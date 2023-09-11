@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\TEJADA-ITELEC1.props" />
+</Project>
