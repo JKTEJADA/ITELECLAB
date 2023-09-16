@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\TEJADA-MachProb1.props" />
+</Project>

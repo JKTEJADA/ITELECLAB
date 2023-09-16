@@ -1,0 +1,73 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<Instructor>
+@{
+    
+
+}
+<table class="table">
+<tr>
+    <th colspan="6">Instructor</th>
+</tr>
+
+<tr>
+    <td>First Name</td>
+    <td>Last Name</td>
+    <td>Birthday</td>
+    <td>Age</td>
+    <td>Status</td>
+    <td>Daily Salary</td>
+    <td>Monthly Salary</td>
+    <td>Email</td>
+    <td>Username</td>
+    <td>Domain</td>
+</tr>
+
+
+@foreach (var Instructor in Model)
+{
+        
+
+        var Dsalary = Instructor.SalaryPerHour * 8;
+        var Msalary = Dsalary * 30;
+        var tenured = "";
+        if (Instructor.IsTenured == true)
+        {
+            tenured = "Permanent";
+            Msalary += 500;
+        }
+        else
+        {
+            tenured = "Probationary";
+        }
+
+        var username = Instructor.Email.Substring(0, Instructor.Email.IndexOf("@"));
+        var domain = Instructor.Email.Substring(Instructor.Email.IndexOf("@") + 1);
+
+
+
+    var age = DateTime.Now.Year - Instructor.Birthday.Year;
+
+
+
+    <tr>
+        <td>@Instructor.FName</td>
+        <td>@Instructor.LName</td>
+        <td>@Instructor.Birthday.ToString("MM-dd-yyyy")</td>
+        <td>@age</td>
+        <td>@tenured</td>
+        <td>@Dsalary</td>
+        <td>@Msalary</td>
+        <td>@Instructor.Email</td>
+        <td>@username</td>
+         <td>@domain</td>
+  
+
+    </tr>
+}
+
+</table>
+
+
+

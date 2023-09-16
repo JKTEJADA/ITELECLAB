@@ -1,0 +1,80 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<Student>
+@{
+    
+
+}
+
+<table class="table">
+    <tr>
+        <th colspan="6">Grades</th>
+    </tr>
+
+    <tr>
+        <td>Name</td>
+        <td>Prelims</td>
+        <td>Final</td>
+        <td>Semestral Grade</td>
+        <td>Transmuted Grade</td>
+    </tr>
+
+    @foreach (var Student in Model)
+    {
+        double TransmutedGrade = 0.0;
+        float x = (Student.PGrade + Student.FGrade)/2;
+        if (x < 75)
+        {
+            TransmutedGrade = 5.0;
+        }
+        else if (x <= 78)
+        {
+            TransmutedGrade = 3.00;
+        }
+        else if (x <= 81)
+        {
+            TransmutedGrade = 2.75;
+        }
+        else if (x <= 83)
+        {
+            TransmutedGrade = 2.50;
+        }
+        else if (x <= 86)
+        {
+            TransmutedGrade = 2.25;
+        }
+        else if (x <= 88)
+        {
+            TransmutedGrade = 2.0;
+        }
+        else if (x <= 91)
+        {
+            TransmutedGrade = 1.75;
+        }
+        else if (x <= 93)
+        {
+            TransmutedGrade = 1.50;
+        }
+        else if (x <= 95)
+        {
+            TransmutedGrade = 1.25;
+        }
+        else if (x <= 100)
+        {
+            TransmutedGrade = 1.00;
+        }
+
+      <tr>
+            <td>@Student.FName @Student.LName</td>
+            <td>@Student.PGrade</td>
+            <td>@Student.FGrade</td>
+            <td>@x</td>
+            <td>@TransmutedGrade</td>
+        </tr>
+        
+    }
+
+
+</table>
+
