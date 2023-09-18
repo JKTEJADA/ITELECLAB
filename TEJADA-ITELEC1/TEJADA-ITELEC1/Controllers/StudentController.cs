@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using TEJADA_ITELEC1.Models;
 
 namespace TEJADA_ITELEC1.Controllers
@@ -21,13 +22,32 @@ namespace TEJADA_ITELEC1.Controllers
                     Id= 3,FirstName = "Aerdriel",LastName = "Montano", Course = Course.BSCS, AdmissionDate = DateTime.Parse("2020-01-25"), GPA = 1.5, Email = "aerdriel@gmail.com"
                 }
             };
-            public IActionResult Index()
+
+
+
+        public IActionResult Index()
+        {
+            return View(StudentList);
+        }
+
+
+        [HttpGet]
+            public IActionResult AddStudent()
             {
 
-                return View(StudentList);
+                return View();
             }
 
-            public IActionResult ShowDetail(int id)
+        [HttpPost]
+        public IActionResult AddStudent (Student newStudent)
+        {
+            StudentList.Add(newStudent);
+
+            return View("Index", StudentList);
+        }
+
+
+        public IActionResult ShowDetail(int id)
             {
                 //Search for the student whose id matches the given id
                 Student? student = StudentList.FirstOrDefault(st => st.Id == id);

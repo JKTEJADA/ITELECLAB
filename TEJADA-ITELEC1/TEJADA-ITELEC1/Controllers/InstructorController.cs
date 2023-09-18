@@ -46,11 +46,29 @@ namespace TEJADA_ITELEC1.Controllers
                 },
 
             };
+
         public IActionResult Index()
         {
-
             return View(InstructorList);
         }
+
+
+        [HttpGet]
+        public IActionResult addInstructor()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult addInstructor(Instructor newInstructor)
+        {
+            InstructorList.Add(newInstructor);
+
+            return View("Index",InstructorList);
+        }
+       
+
+
 
         public IActionResult ShowDetail(int id)
         {

@@ -1,0 +1,41 @@
+﻿
+@model Instructor
+
+@{
+}
+
+<form asp-action="AddInstructor" method="post" >
+    <div class="mb-3">
+        <label asp-for="Id" class="form-label">ID</label>
+        <input type="text" class="form-control" asp-for="Id">
+       
+    </div>
+    <div class="mb-3">
+        <label asp-for="FirstName" class="form-label">First Name</label>
+        <input type="text" class="form-control" asp-for="FirstName">
+    </div>
+    <div class="mb-3">
+        <label asp-for="LastName" class="form-label">Last Name</label>
+        <input type="text" class="form-control" asp-for="LastName">
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="isTenured" class="form-label">Is Tenured</label>
+        <input asp-for="isTenured" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Rank" class="form-label">Rank</label>
+        <select  asp-items="Html.GetEnumSelectList(typeof(Rank))" asp-for="Rank" class="form-control" ></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="HiringDate" class="form-label">Hiring Date</label>
+        <input asp-for="HiringDate" class=" form-control" />
+    </div>
+   
+
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
