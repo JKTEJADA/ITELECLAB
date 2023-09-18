@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 using TEJADA_ITELEC1.Models;
 
 namespace TEJADA_ITELEC1.Controllers
@@ -35,7 +36,7 @@ namespace TEJADA_ITELEC1.Controllers
 
                 new Instructor()
                 {
-                    Id= 2,
+                    Id= 3,
                     FirstName = "Brendon",
                     LastName = "Labrador",
                     isTenured = true,
@@ -66,8 +67,10 @@ namespace TEJADA_ITELEC1.Controllers
 
             return View("Index",InstructorList);
         }
-       
 
+
+
+       
 
 
         public IActionResult ShowDetail(int id)
@@ -79,6 +82,43 @@ namespace TEJADA_ITELEC1.Controllers
                 return View(instructor);
 
             return NotFound();
+        }
+
+         [HttpGet]
+        public IActionResult editDetail(int id)
+        {
+
+            Instructor? instructor = InstructorList.FirstOrDefault(st => st.Id == id);
+
+            if (instructor != null)//was an student found?
+                return View(instructor);
+
+            return NotFound();
+        }
+
+        public IActionResult editDetail(Instructor newInstructor)
+        {
+
+            //Search for the student whose id matches the given id
+            Instructor? instructor = InstructorList.FirstOrDefault(st => st.Id == newInstructor.Id);
+
+            if (instructor != null)
+            {
+               instructor.FirstName = newInstructor.FirstName;
+                instructor.LastName = newInstructor.LastName;
+                instructor.isTenured = newInstructor.isTenured;
+                instructor.Rank = newInstructor.Rank;
+                instructor.Id = newInstructor.Id;
+                instructor.HiringDate = newInstructor.HiringDate;
+          
+
+                return View("Index", InstructorList);
+
+            }
+
+
+            return NotFound();
+
         }
 
     }

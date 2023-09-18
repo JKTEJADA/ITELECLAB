@@ -58,6 +58,50 @@ namespace TEJADA_ITELEC1.Controllers
                 return NotFound();
             }
 
-        
+
+
+        [HttpGet]
+        public IActionResult editDetail(int id)
+        {
+
+            //Search for the student whose id matches the given id
+            Student? student = StudentList.FirstOrDefault(st => st.Id == id);
+
+            if (student != null)//was an student found?
+                return View(student);
+
+            return NotFound();
+
+        }
+
+
+        [HttpPost]
+        public IActionResult editDetail(Student newStudent)
+        {
+
+            //Search for the student whose id matches the given id
+            Student? student = StudentList.FirstOrDefault(st => st.Id == newStudent.Id);
+
+            if (student != null)
+            {
+                student.Id = newStudent.Id;
+                student.FirstName = newStudent.FirstName;
+                student.LastName = newStudent.LastName;
+                student.Email = newStudent.Email;
+                student.GPA = newStudent.GPA;
+             
+                student.AdmissionDate = newStudent.AdmissionDate;
+                student.Course = newStudent.Course;
+
+                return View("Index", StudentList);
+
+            }
+
+             
+            return NotFound();
+
+        }
+
+
     }
 }
