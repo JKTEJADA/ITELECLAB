@@ -21,6 +21,7 @@
         <td>Hiring Date</td>
         <td>Show Details</td>
         <td>Edit Details</td>
+        <td>Delete</td>
        
 
 
@@ -36,6 +37,7 @@
           
             <td><a asp-action="ShowDetail" asp-route-id="@instructor.Id">Show Details</a></td>
             <td><a asp-action="editDetail" asp-route-id="@instructor.Id">Edit Details</a></td>
+            <td><a asp-action="Delete" asp-route-id="@instructor.Id">Delete</a></td>
 
         </tr>
     }

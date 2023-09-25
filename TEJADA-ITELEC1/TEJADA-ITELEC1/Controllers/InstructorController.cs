@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 using TEJADA_ITELEC1.Models;
+using TEJADA_ITELEC1.Services;
 
 namespace TEJADA_ITELEC1.Controllers
 
@@ -9,48 +10,18 @@ namespace TEJADA_ITELEC1.Controllers
     public class InstructorController : Controller
     { 
         
-        List<Instructor> InstructorList = new List<Instructor>
-            {
-                new Instructor()
-                {
-                    Id= 1,
-                    FirstName = "Barbie",
-                    LastName = "Batumbakal",
-                    isTenured = true,
-                    Rank = Rank.Professor,
-                    HiringDate = DateTime.Parse("1999-09-11"), 
+     
+         private readonly fakeDTB _awitlods;
 
-                    
-                },
-                new Instructor()
-                {
-                    Id= 2,
-                    FirstName = "Cena",
-                    LastName = "John",
-                    isTenured = false,
-                    Rank = Rank.AssistantProfessor,
-                    HiringDate = DateTime.Parse("1999-09-11"),
+        public InstructorController(fakeDTB awitlods)
+        {
+            _awitlods = awitlods;
 
-
-                },
-
-                new Instructor()
-                {
-                    Id= 3,
-                    FirstName = "Brendon",
-                    LastName = "Labrador",
-                    isTenured = true,
-                    Rank = Rank.AssociateProfessor,
-                    HiringDate = DateTime.Parse("1999-09-11"),
-
-
-                },
-
-            };
+        }
 
         public IActionResult Index()
         {
-            return View(InstructorList);
+            return View(_awitlods.InstructorList);
         }
 
 
@@ -63,9 +34,9 @@ namespace TEJADA_ITELEC1.Controllers
         [HttpPost]
         public IActionResult addInstructor(Instructor newInstructor)
         {
-            InstructorList.Add(newInstructor);
+            _awitlods.InstructorList.Add(newInstructor);
 
-            return View("Index",InstructorList);
+            return RedirectToAction("Index");
         }
 
 
@@ -76,7 +47,7 @@ namespace TEJADA_ITELEC1.Controllers
         public IActionResult ShowDetail(int id)
         {
             //Search for the student whose id matches the given id
-            Instructor? instructor = InstructorList.FirstOrDefault(st => st.Id == id);
+            Instructor? instructor = _awitlods.InstructorList.FirstOrDefault(st => st.Id == id);
 
             if (instructor!= null)//was an student found?
                 return View(instructor);
@@ -88,7 +59,7 @@ namespace TEJADA_ITELEC1.Controllers
         public IActionResult editDetail(int id)
         {
 
-            Instructor? instructor = InstructorList.FirstOrDefault(st => st.Id == id);
+            Instructor? instructor = _awitlods.InstructorList.FirstOrDefault(st => st.Id == id);
 
             if (instructor != null)//was an student found?
                 return View(instructor);
@@ -100,7 +71,7 @@ namespace TEJADA_ITELEC1.Controllers
         {
 
             //Search for the student whose id matches the given id
-            Instructor? instructor = InstructorList.FirstOrDefault(st => st.Id == newInstructor.Id);
+            Instructor? instructor = _awitlods.InstructorList.FirstOrDefault(st => st.Id == newInstructor.Id);
 
             if (instructor != null)
             {
@@ -110,12 +81,51 @@ namespace TEJADA_ITELEC1.Controllers
                 instructor.Rank = newInstructor.Rank;
                 instructor.Id = newInstructor.Id;
                 instructor.HiringDate = newInstructor.HiringDate;
-          
 
-                return View("Index", InstructorList);
+
+                return RedirectToAction("Index");
 
             }
 
+
+            return NotFound();
+
+        }
+
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+
+            //Search for the student whose id matches the given id
+            Instructor? instructor  = _awitlods.InstructorList.FirstOrDefault(st => st.Id == id);
+
+            Console.WriteLine(instructor.Id);
+
+            if (instructor != null)//was an student found?
+                return View(instructor);
+
+            return NotFound();
+
+        }
+
+
+        [HttpPost]
+        public IActionResult Delete(Instructor delinstructor)
+        {
+
+            //Search for the student whose id matches the given id
+            Instructor? instructor = _awitlods.InstructorList.FirstOrDefault(st => st.Id == delinstructor.Id);
+       
+
+        
+
+            if (instructor != null)
+            {
+                _awitlods.InstructorList.Remove(instructor);
+                return RedirectToAction("Index");
+
+            }
 
             return NotFound();
 

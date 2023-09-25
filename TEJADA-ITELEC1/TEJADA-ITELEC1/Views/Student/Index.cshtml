@@ -5,13 +5,12 @@
 <a class="btn btn-primary" asp-area="" asp-controller="Student" asp-action="AddStudent">Add</a>
 
 
-<div>Student List</div>
 
 
 <table class="table table-dark">
 
     <tr>
-        <th colspan="6">Student</th>
+        <th colspan="8">Student</th>
     </tr>
 
     <tr>
@@ -22,6 +21,7 @@
         <td>GPA</td>
         <td>Details</td>
         <td>Edit Details</td>
+        <td>Delete</td>
 
 
 
@@ -36,6 +36,7 @@
             <td>@student.GPA</td>
             <td><a asp-action="ShowDetail" asp-route-id="@student.Id">Show Details</a></td>
             <td><a asp-action="editDetail" asp-route-id="@student.Id">Edit Details</a></td>
+            <td><a asp-action="Delete" asp-route-id="@student.Id">Delete</a></td>
 
         </tr>
     }

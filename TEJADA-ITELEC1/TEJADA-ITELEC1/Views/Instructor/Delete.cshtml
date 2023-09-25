@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Instructor;
+
+<h1>Are you sure?</h1>
+
+
+<form asp-controller="Instructor" asp-action="Delete" method="post">
+    <div class="mb-3">
+        <label asp-for="Id" class="form-label">ID</label>
+        <input type="text" class="form-control" asp-for="Id" disabled>
+
+    </div>
+    <div class="mb-3">
+        <label asp-for="FirstName" class="form-label">First Name</label>
+        <input type="text" class="form-control" asp-for="FirstName" disabled>
+    </div>
+    <div class="mb-3">
+        <label asp-for="LastName" class="form-label">Last Name</label>
+        <input type="text" class="form-control" asp-for="LastName" disabled>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="isTenured" class="form-label">Is Tenured</label>
+        <input asp-for="isTenured" disabled />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Rank" class="form-label">Rank</label>
+        <select asp-items="Html.GetEnumSelectList(typeof(Rank))" asp-for="Rank" class="form-control" disabled></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="HiringDate" class="form-label">Hiring Date</label>
+        <input asp-for="HiringDate" class=" form-control" disabled />
+    </div>
+
+
+    <button type="submit">Delete</button>
+    <button type="button" onclick="history.back()">Cancel</button>
+</form>

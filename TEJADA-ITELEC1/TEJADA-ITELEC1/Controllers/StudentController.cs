@@ -1,33 +1,29 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using TEJADA_ITELEC1.Models;
+using TEJADA_ITELEC1.Services;
 
 namespace TEJADA_ITELEC1.Controllers
 {
    
         public class StudentController : Controller
         {
-            List<Student> StudentList = new List<Student>
-            {
-                new Student()
-                {
-                    Id= 1,FirstName = "Gabriel",LastName = "Montano", Course = Course.BSIT, AdmissionDate = DateTime.Parse("2022-08-26"), GPA = 1.5, Email = "ghaby021@gmail.com"
-                },
-                new Student()
-                {
-                    Id= 2,FirstName = "Zyx",LastName = "Montano", Course = Course.BSIS, AdmissionDate = DateTime.Parse("2022-08-07"), GPA = 1, Email = "zyx@gmail.com"
-                },
-                new Student()
-                {
-                    Id= 3,FirstName = "Aerdriel",LastName = "Montano", Course = Course.BSCS, AdmissionDate = DateTime.Parse("2020-01-25"), GPA = 1.5, Email = "aerdriel@gmail.com"
-                }
-            };
+        private readonly fakeDTB _awitlods;
+        
+        public StudentController(fakeDTB awitlods)
+        {
+            _awitlods = awitlods;
+
+        }
+            
+
+        
 
 
 
         public IActionResult Index()
         {
-            return View(StudentList);
+            return View(_awitlods.StudentList);
         }
 
 
@@ -41,16 +37,16 @@ namespace TEJADA_ITELEC1.Controllers
         [HttpPost]
         public IActionResult AddStudent (Student newStudent)
         {
-            StudentList.Add(newStudent);
+            _awitlods.StudentList.Add(newStudent);
 
-            return View("Index", StudentList);
+            return RedirectToAction("Index");
         }
 
 
         public IActionResult ShowDetail(int id)
             {
                 //Search for the student whose id matches the given id
-                Student? student = StudentList.FirstOrDefault(st => st.Id == id);
+                Student? student = _awitlods.StudentList.FirstOrDefault(st => st.Id == id);
 
                 if (student != null)//was an student found?
                     return View(student);
@@ -65,7 +61,7 @@ namespace TEJADA_ITELEC1.Controllers
         {
 
             //Search for the student whose id matches the given id
-            Student? student = StudentList.FirstOrDefault(st => st.Id == id);
+            Student? student = _awitlods.StudentList.FirstOrDefault(st => st.Id == id);
 
             if (student != null)//was an student found?
                 return View(student);
@@ -80,7 +76,7 @@ namespace TEJADA_ITELEC1.Controllers
         {
 
             //Search for the student whose id matches the given id
-            Student? student = StudentList.FirstOrDefault(st => st.Id == newStudent.Id);
+            Student? student = _awitlods.StudentList.FirstOrDefault(st => st.Id == newStudent.Id);
 
             if (student != null)
             {
@@ -93,7 +89,7 @@ namespace TEJADA_ITELEC1.Controllers
                 student.AdmissionDate = newStudent.AdmissionDate;
                 student.Course = newStudent.Course;
 
-                return View("Index", StudentList);
+                return RedirectToAction("Index");
 
             }
 
@@ -101,6 +97,48 @@ namespace TEJADA_ITELEC1.Controllers
             return NotFound();
 
         }
+
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+
+            //Search for the student whose id matches the given id
+            Student? student = _awitlods.StudentList.FirstOrDefault(st => st.Id == id);
+
+            Console.WriteLine(student.Id);
+
+            if (student != null)//was an student found?
+                return View(student);
+
+            return NotFound();
+
+        }
+
+
+        [HttpPost]
+        public IActionResult Delete(Student delStudent)
+        {
+
+            //Search for the student whose id matches the given id
+            var student = _awitlods.StudentList.FirstOrDefault(st => st.Id == delStudent.Id);
+
+            Console.WriteLine(student);
+
+            if (student != null)
+            {
+                _awitlods.StudentList.Remove(student);
+                return View("Index", _awitlods.StudentList);
+
+            }
+
+            return NotFound();
+
+        }
+
+
+
+
 
 
     }

@@ -1,7 +1,11 @@
+using TEJADA_ITELEC1.Services;
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
+builder.Services.AddSingleton<fakeDTB, FakeDTS>();
 builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 
