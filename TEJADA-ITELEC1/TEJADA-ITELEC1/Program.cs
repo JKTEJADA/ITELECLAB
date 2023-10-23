@@ -1,10 +1,13 @@
-using TEJADA_ITELEC1.Services;
+using Microsoft.EntityFrameworkCore;
+using TEJADA_ITELEC1.DATA;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
-builder.Services.AddSingleton<fakeDTB, FakeDTS>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 
 var app = builder.Build();
@@ -18,6 +21,9 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<AppDbContext>();
+context.Database.EnsureCreated();       
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -29,3 +35,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+

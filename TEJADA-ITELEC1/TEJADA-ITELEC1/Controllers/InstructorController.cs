@@ -1,27 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 using TEJADA_ITELEC1.Models;
-using TEJADA_ITELEC1.Services;
+using TEJADA_ITELEC1.DATA;
+
+
 
 namespace TEJADA_ITELEC1.Controllers
 
 {
     
     public class InstructorController : Controller
-    { 
-        
-     
-         private readonly fakeDTB _awitlods;
+    {
 
-        public InstructorController(fakeDTB awitlods)
+
+        private readonly AppDbContext _dbContext;
+
+        public InstructorController(AppDbContext dbContext)
         {
-            _awitlods = awitlods;
-
+            _dbContext = dbContext;
         }
 
         public IActionResult Index()
         {
-            return View(_awitlods.InstructorList);
+            return View(_dbContext.Instructors);
         }
 
 
@@ -34,8 +35,8 @@ namespace TEJADA_ITELEC1.Controllers
         [HttpPost]
         public IActionResult addInstructor(Instructor newInstructor)
         {
-            _awitlods.InstructorList.Add(newInstructor);
-
+            _dbContext.Instructors.Add(newInstructor);
+            _dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -47,7 +48,7 @@ namespace TEJADA_ITELEC1.Controllers
         public IActionResult ShowDetail(int id)
         {
             //Search for the student whose id matches the given id
-            Instructor? instructor = _awitlods.InstructorList.FirstOrDefault(st => st.Id == id);
+            Instructor? instructor = _dbContext.Instructors.FirstOrDefault(st => st.Id == id);
 
             if (instructor!= null)//was an student found?
                 return View(instructor);
@@ -59,7 +60,7 @@ namespace TEJADA_ITELEC1.Controllers
         public IActionResult editDetail(int id)
         {
 
-            Instructor? instructor = _awitlods.InstructorList.FirstOrDefault(st => st.Id == id);
+            Instructor? instructor = _dbContext.Instructors.FirstOrDefault(st => st.Id == id);
 
             if (instructor != null)//was an student found?
                 return View(instructor);
@@ -71,7 +72,7 @@ namespace TEJADA_ITELEC1.Controllers
         {
 
             //Search for the student whose id matches the given id
-            Instructor? instructor = _awitlods.InstructorList.FirstOrDefault(st => st.Id == newInstructor.Id);
+            Instructor? instructor = _dbContext.Instructors.FirstOrDefault(st => st.Id == newInstructor.Id);
 
             if (instructor != null)
             {
@@ -82,7 +83,7 @@ namespace TEJADA_ITELEC1.Controllers
                 instructor.Id = newInstructor.Id;
                 instructor.HiringDate = newInstructor.HiringDate;
 
-
+                _dbContext.SaveChanges();
                 return RedirectToAction("Index");
 
             }
@@ -98,10 +99,10 @@ namespace TEJADA_ITELEC1.Controllers
         {
 
             //Search for the student whose id matches the given id
-            Instructor? instructor  = _awitlods.InstructorList.FirstOrDefault(st => st.Id == id);
+            Instructor? instructor  = _dbContext.Instructors.FirstOrDefault(st => st.Id == id);
 
             Console.WriteLine(instructor.Id);
-
+            
             if (instructor != null)//was an student found?
                 return View(instructor);
 
@@ -115,14 +116,15 @@ namespace TEJADA_ITELEC1.Controllers
         {
 
             //Search for the student whose id matches the given id
-            Instructor? instructor = _awitlods.InstructorList.FirstOrDefault(st => st.Id == delinstructor.Id);
+            Instructor? instructor = _dbContext.Instructors.FirstOrDefault(st => st.Id == delinstructor.Id);
        
 
         
 
             if (instructor != null)
             {
-                _awitlods.InstructorList.Remove(instructor);
+                _dbContext.Instructors.Remove(instructor);
+                _dbContext.SaveChanges();
                 return RedirectToAction("Index");
 
             }

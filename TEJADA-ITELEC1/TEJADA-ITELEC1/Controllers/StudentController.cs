@@ -1,29 +1,25 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using TEJADA_ITELEC1.Models;
-using TEJADA_ITELEC1.Services;
+using TEJADA_ITELEC1.DATA;
+using System;
 
 namespace TEJADA_ITELEC1.Controllers
 {
    
         public class StudentController : Controller
         {
-        private readonly fakeDTB _awitlods;
-        
-        public StudentController(fakeDTB awitlods)
+        private readonly AppDbContext _dbContext;
+
+        public StudentController(AppDbContext dbContext)
         {
-            _awitlods = awitlods;
-
+            _dbContext = dbContext;
         }
-            
-
-        
-
 
 
         public IActionResult Index()
         {
-            return View(_awitlods.StudentList);
+            return View(_dbContext.Roster);
         }
 
 
@@ -37,8 +33,8 @@ namespace TEJADA_ITELEC1.Controllers
         [HttpPost]
         public IActionResult AddStudent (Student newStudent)
         {
-            _awitlods.StudentList.Add(newStudent);
-
+            _dbContext.Roster.Add(newStudent);
+            _dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -46,7 +42,7 @@ namespace TEJADA_ITELEC1.Controllers
         public IActionResult ShowDetail(int id)
             {
                 //Search for the student whose id matches the given id
-                Student? student = _awitlods.StudentList.FirstOrDefault(st => st.Id == id);
+                Student? student = _dbContext.Roster.FirstOrDefault(st => st.Id == id);
 
                 if (student != null)//was an student found?
                     return View(student);
@@ -61,7 +57,7 @@ namespace TEJADA_ITELEC1.Controllers
         {
 
             //Search for the student whose id matches the given id
-            Student? student = _awitlods.StudentList.FirstOrDefault(st => st.Id == id);
+            Student? student = _dbContext.Roster.FirstOrDefault(st => st.Id == id);
 
             if (student != null)//was an student found?
                 return View(student);
@@ -76,7 +72,7 @@ namespace TEJADA_ITELEC1.Controllers
         {
 
             //Search for the student whose id matches the given id
-            Student? student = _awitlods.StudentList.FirstOrDefault(st => st.Id == newStudent.Id);
+            Student? student = _dbContext.Roster.FirstOrDefault(st => st.Id == newStudent.Id);
 
             if (student != null)
             {
@@ -88,7 +84,7 @@ namespace TEJADA_ITELEC1.Controllers
              
                 student.AdmissionDate = newStudent.AdmissionDate;
                 student.Course = newStudent.Course;
-
+                _dbContext.SaveChanges();
                 return RedirectToAction("Index");
 
             }
@@ -104,7 +100,7 @@ namespace TEJADA_ITELEC1.Controllers
         {
 
             //Search for the student whose id matches the given id
-            Student? student = _awitlods.StudentList.FirstOrDefault(st => st.Id == id);
+            Student? student = _dbContext.Roster.FirstOrDefault(st => st.Id == id);
 
             Console.WriteLine(student.Id);
 
@@ -121,14 +117,15 @@ namespace TEJADA_ITELEC1.Controllers
         {
 
             //Search for the student whose id matches the given id
-            var student = _awitlods.StudentList.FirstOrDefault(st => st.Id == delStudent.Id);
+            var student = _dbContext.Roster.FirstOrDefault(st => st.Id == delStudent.Id);
 
             Console.WriteLine(student);
 
             if (student != null)
             {
-                _awitlods.StudentList.Remove(student);
-                return View("Index", _awitlods.StudentList);
+                _dbContext.Roster.Remove(student);
+                _dbContext.SaveChanges();
+                return View("Index", _dbContext.Roster);
 
             }
 
