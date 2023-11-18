@@ -6,6 +6,8 @@
 
 <form asp-action="AddInstructor" method="post" >
 
+    <div asp-validation-summary="All"></div>
+
     <div class="mb-3">
         <label asp-for="FirstName" class="form-label">First Name</label>
         <input type="text" class="form-control" asp-for="FirstName">
@@ -29,7 +31,26 @@
         <label asp-for="HiringDate" class="form-label">Hiring Date</label>
         <input asp-for="HiringDate" class=" form-control" />
     </div>
-   
+
+    <div class="mb-3">
+        <label asp-for="PhoneNumber" class="form-label">PhoneNumber</label>
+        <input asp-for="PhoneNumber" class=" form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="EmailAddress" class="form-label">EmailAddress</label>
+        <input asp-for="EmailAddress" class=" form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PersonalURL" class="form-label">PersonalURL</label>
+        <input asp-for="PersonalURL" class=" form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="UnusedPassword" class="form-label">UnusedPassword</label>
+        <input asp-for="UnusedPassword" class=" form-control" />
+    </div>
 
     
     <button type="submit" class="btn btn-primary">Submit</button>

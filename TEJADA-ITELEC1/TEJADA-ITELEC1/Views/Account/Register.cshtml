@@ -1,0 +1,63 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using TEJADA_ITELEC1.ViewModel;
+
+@model RegisterViewModel;
+
+<h1> Register New Account</h1>
+
+<form asp-action="Register">
+    <div class="form-group" asp-validation-summary="All"></div>
+
+    <div class="mb-3">
+        <div class="form-group">
+            <label asp-for="Name">Username</label>
+            <input asp-for="Name">
+        </div>
+    </div>
+    
+    <div class="mb-3">
+        <div class="form-group">
+            <label asp-for="Password">Password</label>
+            <input asp-for="Password">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <div class="form-group">
+            <label asp-for="ConfirmPassword">ConfirmPassword</label>
+            <input asp-for="ConfirmPassword">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <div class="form-group">
+            <label asp-for="FirstName">First Name</label>
+            <input asp-for="FirstName">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <div class="form-group">
+            <label asp-for="LastName">Last Name</label>
+            <input asp-for="LastName">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <div class="form-group">
+            <label asp-for="EmailAddress">Email Address</label>
+            <input asp-for="EmailAddress">
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="form-group">
+            <label asp-for="PhoneNumber">Phone Number</label>
+            <input asp-for="PhoneNumber">
+        </div>
+    </div>
+
+    <input type="submit" value="Register Account" class="btn btn-primary" />
+
+</form>

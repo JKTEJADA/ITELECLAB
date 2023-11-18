@@ -19,9 +19,16 @@
         <td>Is Tenured</td>
         <td>Rank</td>
         <td>Hiring Date</td>
+      
+        <td>PhoneNumber</td>
+        <td>EmailAddress</td>
+        <td>PersonalURL</td>
+        <td>UnusedPassword</td>
+
         <td>Show Details</td>
         <td>Edit Details</td>
         <td>Delete</td>
+
        
 
 
@@ -34,6 +41,11 @@
             <td>@(instructor.isTenured ? "Permanent" : "Probation")</td>
             <td>@instructor.Rank</td>
             <td>@instructor.HiringDate</td>
+            <td>@instructor.PhoneNumber</td>
+            <td>@instructor.EmailAddress</td>
+            <td>@instructor.PersonalURL</td>
+            <td>@instructor.UnusedPassword</td>
+            
           
             <td><a asp-action="ShowDetail" asp-route-id="@instructor.Id">Show Details</a></td>
             <td><a asp-action="editDetail" asp-route-id="@instructor.Id">Edit Details</a></td>

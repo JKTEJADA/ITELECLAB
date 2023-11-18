@@ -35,6 +35,9 @@ namespace TEJADA_ITELEC1.Controllers
         [HttpPost]
         public IActionResult addInstructor(Instructor newInstructor)
         {
+
+            if(!ModelState.IsValid)
+                return View();
             _dbContext.Instructors.Add(newInstructor);
             _dbContext.SaveChanges();
             return RedirectToAction("Index");
