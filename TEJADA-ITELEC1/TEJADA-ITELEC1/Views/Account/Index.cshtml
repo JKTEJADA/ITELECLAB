@@ -8,16 +8,16 @@
 
 
 
-<form asp-controller = "Account" asp-action="Login" method="post" >
+<form asp-action="Login" >
 
     <div class="form-group" asp-validation-summary="All"></div>
 
     <div class="mb-3">
-        <label asp-for="UserName" class="form-label">First Name</label>
+        <label asp-for="UserName" class="form-label">Username</label>
         <input type="text" class="form-control" asp-for="UserName">
     </div>
     <div class="mb-3">
-        <label asp-for="Password" class="form-label">Last Name</label>
+        <label asp-for="Password" class="form-label">Password</label>
         <input type="text" class="form-control" asp-for="Password">
     </div>
 

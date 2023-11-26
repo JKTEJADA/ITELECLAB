@@ -63,11 +63,11 @@ namespace TEJADA_ITELEC1.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel userEnteredData)
         {
-            if(!ModelState.IsValid) 
+            if(ModelState.IsValid) 
             {
                 UserClass newUser = new()
                 {
-                    UserName = userEnteredData.Name,
+                    UserName = userEnteredData.Username,
                     FirstName = userEnteredData.FirstName,
                     Lastname = userEnteredData.LastName,
                     Email = userEnteredData.EmailAddress,

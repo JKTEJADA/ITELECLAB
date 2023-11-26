@@ -6,9 +6,9 @@ namespace TEJADA_ITELEC1.ViewModel
 
     public class RegisterViewModel
     {
-        [Display(Name = "User Name")]
+        [Display(Name = "Username")]
         [Required(ErrorMessage = "Username Required")]
-        public string? Name { get; set; }
+        public string? Username { get; set; }
 
 
         [Display(Name = "Password")]
@@ -32,7 +32,7 @@ namespace TEJADA_ITELEC1.ViewModel
         [Required(ErrorMessage = "Email address required")]
         public string? EmailAddress { get; set; }
 
-        [RegularExpression("[0-9][3] - [0-9][3] - [0-9][4]]", ErrorMessage = "you must follow the format 000-000-0000")]
+        [RegularExpression("[0-9]{3}-[0-9]{3}-[0-9]{4}", ErrorMessage = "you must follow the format 000-000-0000")]
         [Display(Name = "PhoneNumber")]
         public string? PhoneNumber { get; set; }
 

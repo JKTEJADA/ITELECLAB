@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
         internal string? FirstName;
         internal string? Lastname;
 
-        public string? UserName { get; set; }
+      //  public string? Username { get; set; }
         public string? Password { get; set;}
         public bool? RememberMe { get; set; }
 
